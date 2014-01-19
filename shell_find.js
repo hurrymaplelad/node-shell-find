@@ -11,9 +11,11 @@ var shellFind = {
     this._command.unshift('-name', pattern, '-prune', '-o');
   },
 
+  newer: function(filepath) {
+    this._command.push('-newer', filepath);
+  },
+
   command: function() {
-    // if cnewer
-    //   command.push '-cnewer', cnewer
     return escape(['find', this.rootDir].concat(this._command, '-print'));
   },
 
