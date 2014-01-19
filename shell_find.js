@@ -2,16 +2,18 @@ var exec = require('child_process').exec;
 var escape = require('shell-escape');
 
 var shellFind = {
-  cwd: '.',
+
+  name: function(pattern) {
+    this._command.push('-name', pattern);
+  },
 
   command: function() {
-    var command = ['find', this.cwd];
     // if name
     //   command.push '-name', name
     // if cnewer
     //   command.push '-cnewer', cnewer
     // command.push '-print'
-    return escape(command);
+    return escape(this._command);
   },
 
   exec: function(callback) {
@@ -27,8 +29,10 @@ var shellFind = {
   }
 };
 
-module.exports = function() {
-  return Object.create(shellFind);
+module.exports = function(rootDir) {
+  var finder = Object.create(shellFind);
+  finder._command = ['find', rootDir || '.'];
+  return finder;
 };
 
 //   return grunt.registerTask('find', pkg.description, function() {

@@ -19,10 +19,22 @@ describe 'shellFind', ->
 
     it 'lists files in the root, relative to the working directory', (done) ->
       finder.exec (err, filenames) ->
-        filenames.should.containEql './test/fixtures/kale.js'
-        filenames.should.containEql './test/fixtures/radish.coffee'
-        filenames.should.containEql './test/fixtures/grains/spelt.coffee'
+        filenames.should.containEql 'test/fixtures/kale.js'
+        filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
+        filenames.should.not.containEql 'Gruntfile.coffee'
         done()
+
+    describe 'name', ->
+      beforeEach ->
+        finder.name '*.coffee'
+
+      it 'filters filenames with glob expressions', (done) ->
+        finder.exec (err, filenames) ->
+          filenames.should.containEql 'test/fixtures/radish.coffee'
+          filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
+          filenames.should.not.containEql 'test/fixtures/kale.js'
+          done()
+
 
 
 
