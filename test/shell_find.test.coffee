@@ -61,5 +61,15 @@ describe 'shellFind', ->
           filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
           done()
 
+  describe 'chaining', ->
+    it 'works', (done) ->
+      shellFind('test/fixtures')
+        .name('*.coffee')
+        .prune('grains')
+        .exec (err, filenames) ->
+          filenames.should.eql ['test/fixtures/radish.coffee']
+          done()
+
+
 
 

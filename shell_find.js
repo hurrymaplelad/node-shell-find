@@ -5,14 +5,17 @@ var shellFind = {
 
   name: function(pattern) {
     this._command.push('-name', pattern);
+    return this;
   },
 
   prune: function(pattern) {
     this._command.unshift('-name', pattern, '-prune', '-o');
+    return this;
   },
 
   newer: function(filepath) {
     this._command.push('-newer', filepath);
+    return this;
   },
 
   command: function() {
