@@ -31,6 +31,7 @@ describe 'shellFind', ->
 
       it 'keeps only filenames matching a glob expression', (done) ->
         finder.exec (err, filenames) ->
+          filenames.length.should.eql 2
           filenames.should.containEql 'test/fixtures/radish.coffee'
           filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
           filenames.should.not.containEql 'test/fixtures/kale.js'
@@ -56,7 +57,6 @@ describe 'shellFind', ->
 
       it 'keeps only files modified after the argument file', (done) ->
         finder.exec (err, filenames) ->
-          console.log finder.command()
           filenames.should.not.containEql 'test/fixtures/radish.coffee'
           filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
           done()

@@ -26,7 +26,7 @@ var shellFind = {
       }
 
       var files = stdout.split('\n');
-      // file.pop();
+      if(files[files.length-1] === '') files.pop(); // trailing newline
       callback(null, files);
     });
   }
