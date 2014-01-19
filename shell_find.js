@@ -7,13 +7,14 @@ var shellFind = {
     this._command.push('-name', pattern);
   },
 
+  prune: function(pattern) {
+    this._command.unshift('-name', pattern, '-prune', '-o');
+  },
+
   command: function() {
-    // if name
-    //   command.push '-name', name
     // if cnewer
     //   command.push '-cnewer', cnewer
-    // command.push '-print'
-    return escape(this._command);
+    return escape(['find', this.rootDir].concat(this._command, '-print'));
   },
 
   exec: function(callback) {
@@ -31,68 +32,7 @@ var shellFind = {
 
 module.exports = function(rootDir) {
   var finder = Object.create(shellFind);
-  finder._command = ['find', rootDir || '.'];
+  finder._command = [];
+  finder.rootDir = rootDir || '.';
   return finder;
 };
-
-//   return grunt.registerTask('find', pkg.description, function() {
-//     var allConfig, cnewer, command, config, cwd, dest, done, expand, ext, name, target, _ref,
-//       _this = this;
-//     allConfig = grunt.config.getRaw(this.name);
-//     target = this.args[0];
-//     if (!target) {
-//       grunt.task.run(Object.keys(allConfig).map(function(target) {
-//         return "" + _this.name + ":" + target;
-//       }));
-//       return;
-//     }
-//     done = this.async();
-//     _ref = _(allConfig[target]).defaults({
-//       cwd: '.',
-//       config: "" + this.name + "." + target + ".files"
-//     }), name = _ref.name, cnewer = _ref.cnewer, cwd = _ref.cwd, expand = _ref.expand, dest = _ref.dest, ext = _ref.ext, config = _ref.config;
-//     command = ['find', cwd];
-//     if (name) {
-//       command.push('-name', name);
-//     }
-//     if (cnewer) {
-//       command.push('-cnewer', cnewer);
-//     }
-//     command.push('-print');
-//     command = escape(command);
-//     grunt.log.verbose.writeln("# Running `" + command + "`");
-//     return exec(command, function(err, stdout, stderr) {
-//       var files;
-//       if (err || stderr) {
-//         grunt.fail.fatal(err || sterr);
-//         done(false);
-//       }
-//       files = stdout.split('\n').filter(Boolean).map(function(filename) {
-//         return filename.replace(/^.\//, '');
-//       });
-//       if (expand) {
-//         files = files.map(function(filename) {
-//           var file;
-//           file = {
-//             src: [filename]
-//           };
-//           if (dest) {
-//             file.dest = makeDestPath(cwd, filename, dest, ext);
-//           }
-//           return file;
-//         });
-//       } else {
-//         files = [
-//           {
-//             src: files
-//           }
-//         ];
-//         if (dest) {
-//           files[0].dest = dest;
-//         }
-//       }
-//       grunt.config(config, files);
-//       return done();
-//     });
-//   });
-// };

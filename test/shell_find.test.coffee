@@ -24,17 +24,23 @@ describe 'shellFind', ->
         filenames.should.not.containEql 'Gruntfile.coffee'
         done()
 
-    describe 'name', ->
+    describe 'name()', ->
       beforeEach ->
         finder.name '*.coffee'
 
-      it 'filters filenames with glob expressions', (done) ->
+      it 'keeps only filenames matching a glob expression', (done) ->
         finder.exec (err, filenames) ->
           filenames.should.containEql 'test/fixtures/radish.coffee'
           filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
           filenames.should.not.containEql 'test/fixtures/kale.js'
           done()
 
+    describe 'prune()', ->
+      beforeEach ->
+        finder.prune 'grains'
 
-
-
+      it 'exludes paths with a matching path component', (done) ->
+        finder.exec (err, filenames) ->
+          filenames.should.containEql 'test/fixtures/radish.coffee'
+          filenames.should.not.containEql 'test/fixtures/grains/spelt.coffee'
+          done()
