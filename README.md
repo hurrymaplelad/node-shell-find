@@ -1,4 +1,4 @@
-shell-find [![Build Status](https://travis-ci.org/hurrymaplelad/shell-find.png)](https://travis-ci.org/hurrymaplelad/shell-find)
+shell-find [![Build Status](https://travis-ci.org/hurrymaplelad/node-shell-find.png)](https://travis-ci.org/hurrymaplelad/node-shell-find)
 =========
 
 Node bindings for the shell [`find`](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/find.1.html) utility.  Way faster and way less portable than [node-glob](https://github.com/isaacs/node-glob).
