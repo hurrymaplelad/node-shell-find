@@ -1,0 +1,29 @@
+{
+  "name": "shell-find",
+  "version": "0.0.0",
+  "description": "Node bindings for shell find utility",
+  "main": "shell_find.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hurrymaplelad/node-shell-find.git"
+  },
+  "keywords": [
+    "shell",
+    "find"
+  ],
+  "author": "Adam Hull <adam@hmlad.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "load-grunt-tasks": "~0.2.1",
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-simple-mocha": "~0.4.0",
+    "should": "~3.0.1"
+  },
+  "dependencies": {
+    "shell-escape": "0.0.1"
+  }
+}
