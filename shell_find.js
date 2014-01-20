@@ -19,7 +19,7 @@ var shellFind = {
   },
 
   type: function(filetype) {
-    this._command.push('-type', filetype);
+    this._command.push('-type', filetype[0]);
     return this;
   },
 
