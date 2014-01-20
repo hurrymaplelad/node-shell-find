@@ -61,6 +61,23 @@ describe 'shellFind', ->
           filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
           done()
 
+    describe 'type()', ->
+      it 'keeps only paths of the argument filetype', (done) ->
+        finder.type('file').exec (err, filenames) ->
+          filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
+          filenames.should.not.containEql 'test/fixtures/grains'
+          done()
+
+      it 'supports arbitrary prefixes of the long filetype names', (done) ->
+        shellFind('test/fixtures').type('f').exec (err, filenames) ->
+          filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
+          filenames.should.not.containEql 'test/fixtures/grains'
+
+          shellFind('test/fixtures').type('dir').exec (err, filenames) ->
+            filenames.should.not.containEql 'test/fixtures/grains/spelt.coffee'
+            filenames.should.containEql 'test/fixtures/grains'
+            done()
+
   describe 'chaining', ->
     it 'works', (done) ->
       shellFind('test/fixtures')

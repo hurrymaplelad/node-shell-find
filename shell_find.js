@@ -18,6 +18,11 @@ var shellFind = {
     return this;
   },
 
+  type: function(filetype) {
+    this._command.push('-type', filetype);
+    return this;
+  },
+
   command: function() {
     return escape(['find', this.rootDir].concat(this._command, '-print'));
   },
