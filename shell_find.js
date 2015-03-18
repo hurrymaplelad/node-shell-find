@@ -33,7 +33,7 @@ var shellFind = {
   },
 
   exec: function(callback) {
-    exec(this.command(), function(err, stdout, stderr) {
+    exec(this.command(), {maxBuffer: 1024 * 1024}, function(err, stdout, stderr) {
       if(err || stderr) {
         return callback(err || stderr);
       }
