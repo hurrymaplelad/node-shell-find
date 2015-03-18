@@ -26,6 +26,11 @@ var shellFind = {
   command: function() {
     return escape(['find', this.rootDir].concat(this._command, '-print'));
   },
+  
+  follow: function() {
+    this._command.push('-follow');
+    return this;
+  },
 
   exec: function(callback) {
     exec(this.command(), function(err, stdout, stderr) {
