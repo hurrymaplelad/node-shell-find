@@ -34,8 +34,8 @@ var shellFind = {
 
   exec: function(callback) {
     exec(this.command(), this.options, function(err, stdout, stderr) {
-      if(err || stderr) {
-        return callback(err || stderr);
+      if(err) {
+        return callback(stderr);
       }
 
       var files = stdout.split('\n');
