@@ -33,21 +33,32 @@ var shellFind = {
   },
 
   exec: function(callback) {
-    exec(this.command(), function(err, stdout, stderr) {
-      if(err || stderr) {
-        return callback(err || stderr);
+    exec(this.command(), this.options, function(err, stdout, stderr) {
+      if(err) {
+        return callback(stderr);
       }
 
       var files = stdout.split('\n');
-      if(files[files.length-1] === '') files.pop(); // trailing newline
+      if(files[files.length-1] === '') {
+        files.pop(); // trailing newline
+      }
       callback(null, files);
     });
   }
 };
 
-module.exports = function(rootDir) {
+module.exports = function(rootDir, options) {
   var finder = Object.create(shellFind);
   finder._command = [];
-  finder.rootDir = rootDir || '.';
+  finder.rootDir = '.';
+  finder.options = options;
+  switch (typeof rootDir) {
+    case 'string':
+      finder.rootDir = rootDir;
+      break;
+    case 'object':
+      finder.options = rootDir;
+      break;
+  }
   return finder;
 };
