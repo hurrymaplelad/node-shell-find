@@ -78,6 +78,21 @@ describe 'shellFind', ->
             filenames.should.containEql 'test/fixtures/grains'
             done()
 
+  describe 'given exec options', ->
+    it 'passes them through to exec', (done) ->
+      finder = shellFind('test/fixtures', maxBuffer: 1024 * 1024)
+      finder.exec (err, filenames) ->
+        filenames.should.containEql 'test/fixtures/kale.js'
+        filenames.should.containEql 'test/fixtures/grains/spelt.coffee'
+        filenames.should.not.containEql 'Gruntfile.coffee'
+        done()
+
+    it 'supports options without filepath', (done) ->
+      finder = shellFind(maxBuffer: 1024 * 1024)
+      finder.exec (err, filenames) ->
+        filenames.should.containEql './Gruntfile.coffee'
+        done()
+
   describe 'chaining', ->
     it 'works', (done) ->
       shellFind('test/fixtures')
@@ -86,7 +101,3 @@ describe 'shellFind', ->
         .exec (err, filenames) ->
           filenames.should.eql ['test/fixtures/radish.coffee']
           done()
-
-
-
-
